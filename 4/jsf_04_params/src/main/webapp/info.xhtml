@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="jakarta.faces.facelets"
+	xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core">
+
+<f:metadata>
+	<f:viewParam name="name" value="#{paramSenderBB.param1}" />
+	<f:viewParam name="surname" value="#{paramSenderBB.param2}" />
+</f:metadata>
+
+<ui:composition template="/templates/main-template.xhtml">
+
+	<ui:define name="title">
+		JSF 04 - analiza przekazanych parametrów i atrybutów
+	</ui:define>
+
+	<ui:define name="content">
+
+		<fieldset class="bottom-space">
+			<legend>Parametry przekazane przez &lt;paramView&gt;</legend>
+			<h:panelGrid columns="2" cellpadding="5">
+
+				<h:outputText value="name: " />
+				<h:outputText value="#{paramSenderBB.param1}" />
+				<h:outputText value="surname: " />
+				<h:outputText value="#{paramSenderBB.param2}" />
+
+			</h:panelGrid>
+		</fieldset>
+
+		<fieldset class="bottom-space top-space">
+			<legend>Parametry dostępne w żądaniu (GET lub POST):</legend>
+
+			<ul>
+				<ui:repeat var="par" value="#{paramReceiverBB.requestParams()}">
+					<li><strong>#{par.name}</strong> : #{par.value}</li>
+				</ui:repeat>
+			</ul>
+
+		</fieldset>
+
+		<fieldset class="bottom-space top-space">
+			<legend>Obiekty dostępne w żądaniu (Atrybuty):</legend>
+
+			<h:dataTable value="#{paramReceiverBB.requestAttribs()}" var="par"
+				cellpadding="5">
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="nazwa" />
+					</f:facet>
+					<h:outputText value="#{par.name}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="wartość" />
+					</f:facet>
+					<h:outputText value="#{par.value}" />
+				</h:column>
+
+			</h:dataTable>
+
+		</fieldset>
+
+		<fieldset class="bottom-space top-space">
+			<legend>Obiekty dostępne w sesji (Atrybuty):</legend>
+
+			<h:dataTable value="#{paramReceiverBB.sessionAttribs()}" var="par"
+				cellpadding="5">
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="nazwa" />
+					</f:facet>
+					<h:outputText value="#{par.name}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="wartość" />
+					</f:facet>
+					<h:outputText value="#{par.value}" />
+				</h:column>
+
+			</h:dataTable>
+		</fieldset>
+
+		<h:form styleClass="bottom-space">
+			<h:commandButton value="Powrót"
+				action="#{paramReceiverBB.backToIndex()}" />
+		</h:form>
+
+		<hr />
+
+		<fieldset class="bottom-space top-space">
+			<legend>Inne ważne właściwości żądania (metody .get...() .is...()):</legend>
+			
+			<h:dataTable value="#{paramReceiverBB.requestData()}" var="par"
+				cellpadding="5">
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="nazwa" />
+					</f:facet>
+					<h:outputText value="#{par.name}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="wartość" />
+					</f:facet>
+					<h:outputText value="#{par.value}" />
+				</h:column>
+
+			</h:dataTable>
+
+		</fieldset>
+
+		<fieldset class="bottom-space top-space">
+			<legend>Inne ważne właściwości sesji (metody .get...() .is...()):</legend>
+			
+			<h:dataTable value="#{paramReceiverBB.sessionData()}" var="par"
+				cellpadding="5">
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="nazwa" />
+					</f:facet>
+					<h:outputText value="#{par.name}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="wartość" />
+					</f:facet>
+					<h:outputText value="#{par.value}" />
+				</h:column>
+
+			</h:dataTable>
+
+		</fieldset>
+
+		<hr />
+
+		<fieldset class="bottom-space top-space">
+			<legend>Wszystkie nagłówki żądania (metoda .getHeader("...")):</legend>
+			
+			<h:dataTable value="#{paramReceiverBB.requestHeaders()}" var="par"
+				cellpadding="5">
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="nazwa" />
+					</f:facet>
+					<h:outputText value="#{par.name}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="wartość" />
+					</f:facet>
+					<h:outputText value="#{par.value}" />
+				</h:column>
+
+			</h:dataTable>
+
+		</fieldset>
+
+		<fieldset class="bottom-space top-space">
+			<legend>Wszystkie ciasteczka żądania (metoda .getCookies):</legend>
+			
+			<h:dataTable value="#{paramReceiverBB.requestCookies()}" var="par"
+				cellpadding="5">
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="nazwa" />
+					</f:facet>
+					<h:outputText value="#{par.name}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="wartość" />
+					</f:facet>
+					<h:outputText value="#{par.value}" />
+				</h:column>
+
+			</h:dataTable>
+
+		</fieldset>
+	</ui:define>
+
+</ui:composition>
+</html>

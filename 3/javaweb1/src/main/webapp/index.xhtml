@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+
+      >
+
+    <ui:composition template="/templates/page-template.xhtml">
+        <ui:define name="pageContent">
+
+            <p:panel header="Kalkulator">
+
+               
+                <p:card style="width: 25rem; margin-bottom: 2em">
+                <h:form id="bla">
+                    <span class="ui-float-label" style=" height: 60px">
+                    <p:inputText id="float-input1" value="#{kredytBB.x}"/>
+                    <p:outputLabel for="@previous" value="Kwota kredytu"/>
+                    </span>
+                   
+                    
+                    <span class="ui-float-label" style=" height: 60px">
+                    <p:inputText id="float-input2" value="#{kredytBB.y}"/>
+                    <p:outputLabel for="@previous" value="Na ile lat "/>
+                    </span>
+                    
+                    
+                    
+                    <span class="ui-float-label" style=" height: 60px">
+                    <p:inputText id="float-input3" value="#{kredytBB.z}"/>
+                    <p:outputLabel for="@previous" value="Oprocentowanie"/>
+                    </span>
+                    
+                   
+                    <h:messages id="msg" />
+
+                    <h:commandButton value="Oblicz" action="#{kredytBB.calc()}"/>
+                    <br />
+
+                </h:form>
+                </p:card>
+            </p:panel>
+
+        </ui:define>
+    </ui:composition>
+</html>

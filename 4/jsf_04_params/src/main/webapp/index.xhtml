@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="jakarta.faces.facelets"
+	xmlns:h="jakarta.faces.html"
+	xmlns:f="jakarta.faces.core">
+
+<f:metadata>
+	<f:viewParam name="name" value="#{paramSenderBB.param1}" />
+	<f:viewParam name="surname" value="#{paramSenderBB.param2}" />
+</f:metadata>
+
+<ui:composition template="/templates/main-template.xhtml">
+
+	<ui:define name="title">
+		JSF 04 - parametry, wyświetlanie kolekcji (list/tabel), sesja, ciasteczka
+	</ui:define>
+
+	<ui:define name="content">
+
+		<fieldset class="bottom-space">
+			<legend>Przekazywanie parametrów metodą GET z użyciem linków
+				i przycisków</legend>
+
+			<h:panelGrid columns="1" cellpadding="5">
+
+				<h:link value="Link z parametrami" outcome="info">
+					<f:param name="name" value="Jan" />
+					<f:param name="surname" value="Kowalski" />
+				</h:link>
+
+				<h:button value="Przycisk z parametrami" outcome="info">
+					<f:param name="name" value="Jan" />
+					<f:param name="surname" value="Kowalski" />
+				</h:button>
+
+			</h:panelGrid>
+		</fieldset>
+
+		<fieldset class="bottom-space">
+			<legend>Przekazywanie parametrów metodą GET lub POST -
+				zwykły formularz HTML (poza JSF)</legend>
+
+			<form action="info.jsf" method="post">
+				imię: <input type="text" name="name" value="" /><br /> nazwisko: <input
+					type="text" name="surname" value="" /><br /> wiek: <input
+					type="text" name="age" value="" /><br /> <input type="submit"
+					value="Wyślij" />
+			</form>
+		</fieldset>
+
+		<fieldset class="bottom-space top-space">
+			<legend>Przekazywanie dalej parametrów strony odebranych
+				metodą GET</legend>
+
+			<h:panelGrid columns="1" cellpadding="5">
+
+				<h:link value="Link do tej strony z parametrami" outcome="index">
+					<f:param name="name" value="Jan" />
+					<f:param name="surname" value="Kowalski" />
+					<f:param name="age" value="40" />
+					<f:param name="street" value="Będzińska" />
+				</h:link>
+
+				<h:link value="Link z przekazaniem parametrów tej strony"
+					outcome="info" includeViewParams="true" />
+				<h:link value="Link domyślny - bez przekazania parametrów"
+					outcome="info" />
+
+			</h:panelGrid>
+		</fieldset>
+
+		<fieldset class="bottom-space top-space">
+			<legend>Przekazywanie parametrów z użyciem ziarna i żądania</legend>
+
+			<h:form>
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputLabel for="idname" value="imię:" />
+					<h:inputText id="idname" value="#{paramSenderBB.name}" />
+					<h:outputLabel for="idsurname" value="nazwisko:" />
+					<h:inputText id="idsurname" value="#{paramSenderBB.surname}" />
+					<h:commandButton value="Wyślij"
+						action="#{paramSenderBB.sendThroughRequest()}" />
+				</h:panelGrid>
+			</h:form>
+		</fieldset>
+
+		<fieldset class="bottom-space top-space">
+			<legend>Przekazywanie parametrów z użyciem ziarna i sesji</legend>
+
+			<h:form>
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputLabel for="idname" value="imię:" />
+					<h:inputText id="idname" value="#{paramSenderBB.name}" />
+					<h:outputLabel for="idsurname" value="nazwisko:" />
+					<h:inputText id="idsurname" value="#{paramSenderBB.surname}" />
+					<h:commandButton value="Wyślij"
+						action="#{paramSenderBB.sendThroughSession()}" />
+				</h:panelGrid>
+			</h:form>
+		</fieldset>
+
+		<fieldset class="bottom-space top-space">
+			<legend>Ustawianie ciasteczek dla przeglądarki</legend>
+
+			<h:form>
+				<h:panelGrid columns="1" cellpadding="5">
+					<h:commandButton value="Ustaw ciasteczka"
+						action="#{paramSenderBB.setCookies()}" />
+					<h:link value="Idź i szukaj ciastek ..." outcome="info"/>
+				</h:panelGrid>
+			</h:form>
+		</fieldset>
+
+	</ui:define>
+
+</ui:composition>
+</html>
